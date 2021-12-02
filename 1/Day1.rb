@@ -6,7 +6,7 @@ class Day1
   end
 
   def run_day
-    count_depth_increases
+    count_depth_window_increases
   end
 
   private
@@ -28,6 +28,28 @@ class Day1
     end
 
     depth_increases
+  end
+
+  DEPTH_WINDOW_SIZE = 3
+  def count_depth_window_increases
+    depth_set = []
+    depth_increases = 0
+
+    load_depth_from_input_file do |depth|
+      depth_set << depth
+      next if depth_set.size < DEPTH_WINDOW_SIZE + 1
+
+      depth_increases += 1 if depth_increase?(depth_set)
+      depth_set.shift
+    end
+
+    depth_increases
+  end
+
+  def depth_increase?(depth_set)
+    window_one = depth_set.take(3).sum
+    window_two = depth_set.drop(1).sum
+    window_two > window_one
   end
 end
 
