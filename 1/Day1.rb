@@ -1,5 +1,7 @@
 class Day1
-  def initialize(input_file = 'input.txt')
+  # Read file into array
+  # Find amount of items that increase compared to previous element
+  def initialize(input_file = './1/input.txt')
     @input_file = input_file
   end
 
@@ -9,23 +11,27 @@ class Day1
 
   private
 
-  def load_depth_from_input_file(&block)
-    File.foreach(@input_file, &block)
+  def load_depth_from_input_file
+    File.foreach(@input_file) do |line|
+      yield Integer(line, 10)
+    end
   end
 
   def count_depth_increases
-    i = 0
+    previous_depth = nil
+    depth_increases = 0
+
     load_depth_from_input_file do |depth|
-      exit if i > 20
-      puts depth
-      i += 1
+      previous_depth ||= depth
+      depth_increases += 1 if depth > previous_depth
+      previous_depth = depth
     end
+
+    depth_increases
   end
-  # Read file into array
-  # Find amount of items that increase compared to previous element
 end
 
 if __FILE__ == $PROGRAM_NAME
   day = Day1.new
-  day.run_day
+  puts day.run_day
 end
