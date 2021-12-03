@@ -1,4 +1,5 @@
-class Day1
+require('./day.rb')
+class Day1 < Day
   # Read file into array
   # Find amount of items that increase compared to previous element
   def initialize(input_file = './1/input.txt')
@@ -13,7 +14,7 @@ class Day1
   private
 
   def load_depth_from_input_file
-    File.foreach(@input_file) do |line|
+    load_test_file do |line|
       yield Integer(line, 10)
     end
   end
