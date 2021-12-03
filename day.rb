@@ -1,5 +1,5 @@
 class Day
-  def initialize(input_file = './1/input.txt')
+  def initialize(input_file = "2/input.txt")
     @input_file = input_file
   end
 
