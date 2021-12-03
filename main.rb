@@ -1,3 +1,5 @@
+require('./day.rb')
+
 days = []
 
 Dir.glob('*/*.rb') do |filename|

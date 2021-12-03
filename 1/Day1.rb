@@ -1,4 +1,3 @@
-require('./day.rb')
 class Day1 < Day
   # Read file into array
   # Find amount of items that increase compared to previous element
