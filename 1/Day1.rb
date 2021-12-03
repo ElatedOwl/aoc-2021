@@ -6,7 +6,8 @@ class Day1
   end
 
   def run_day
-    count_depth_window_increases
+    puts "Part 1 #{count_depth_increases}"
+    puts "Part 2 #{count_depth_increases(3)}"
   end
 
   private
@@ -17,37 +18,23 @@ class Day1
     end
   end
 
-  def count_depth_increases
-    previous_depth = nil
-    depth_increases = 0
-
-    load_depth_from_input_file do |depth|
-      previous_depth ||= depth
-      depth_increases += 1 if depth > previous_depth
-      previous_depth = depth
-    end
-
-    depth_increases
-  end
-
-  DEPTH_WINDOW_SIZE = 3
-  def count_depth_window_increases
+  def count_depth_increases(window_size = 1)
     depth_set = []
     depth_increases = 0
 
     load_depth_from_input_file do |depth|
       depth_set << depth
-      next if depth_set.size < DEPTH_WINDOW_SIZE + 1
+      next if depth_set.size < window_size + 1
 
-      depth_increases += 1 if depth_increase?(depth_set)
+      depth_increases += 1 if depth_increase?(depth_set, window_size)
       depth_set.shift
     end
 
     depth_increases
   end
 
-  def depth_increase?(depth_set)
-    window_one = depth_set.take(3).sum
+  def depth_increase?(depth_set, window_size)
+    window_one = depth_set.take(window_size).sum
     window_two = depth_set.drop(1).sum
     window_two > window_one
   end
@@ -55,5 +42,5 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   day = Day1.new
-  puts day.run_day
+  day.run_day
 end
